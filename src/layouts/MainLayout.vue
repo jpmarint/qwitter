@@ -1,116 +1,143 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
-    <q-header elevated>
-      <q-toolbar>
-        <q-btn
-          flat
-          dense
-          round
-          icon="menu"
-          aria-label="Menu"
-          @click="toggleLeftDrawer"
-        />
+  <q-layout view="lHr lpR fFf">
 
-        <q-toolbar-title>
-          Quasar App
+    <q-header bordered class="bg-white text-black">
+      <q-toolbar>
+        <q-btn dense flat round icon="menu" @click="toggleLeftDrawer" />
+
+        <q-toolbar-title class="text-weight-bold" >
+          <span class="gt-sm">{{ $route.name }}</span>
+          <q-icon
+        class="header-icon q-pa-md lt-md"
+        name="fa-solid fa-dove"
+        size="sm"
+        color="primary"
+        />
         </q-toolbar-title>
 
-        <div>Quasar v{{ $q.version }}</div>
       </q-toolbar>
     </q-header>
 
-    <q-drawer
-      v-model="leftDrawerOpen"
-      show-if-above
-      bordered
-    >
-      <q-list>
-        <q-item-label
-          header
-        >
-          Essential Links
-        </q-item-label>
-
-        <EssentialLink
-          v-for="link in essentialLinks"
-          :key="link.title"
-          v-bind="link"
+    <q-drawer show-if-above v-model="leftDrawerOpen" side="left" width="280" bordered>
+      <q-icon
+        class="q-pa-md"
+        name="fa-solid fa-dove"
+        size="md"
+        color="primary"
         />
+        <div class="q-pa-md" style="max-width: 350px">
+          <q-list>
+            <q-item
+              clickable
+              v-ripple
+              to="/"
+              exact=""
+              >
+              <q-item-section avatar>
+                <q-icon name="fa-solid fa-house" size="sm" />
+              </q-item-section>
+              <q-item-section class="text-h6 text-weight-medium">Home</q-item-section>
+            </q-item>
+            <q-item
+              clickable
+              v-ripple
+              to="/about"
+              exact=""
+              >
+              <q-item-section avatar>
+                <q-icon name="fa-sharp fa-solid fa-circle-question" size="sm" />
+              </q-item-section>
+              <q-item-section class="text-h6 text-weight-medium">About</q-item-section>
+            </q-item>
+          </q-list>
+        </div>
+    </q-drawer>
+
+    <q-drawer show-if-above v-model="rightDrawerOpen" side="right" bordered>
+      <q-input
+        class="q-ma-md"
+        v-model="text"
+        outlined
+        rounded
+        dense
+        placeholder="Search qwitter"
+      >
+        <template v-slot:prepend>
+          <q-icon name="search" />
+        </template>
+      </q-input>
+
+      <q-list padding separator>
+        <q-item class="q-pa-md">
+          <q-item-section>
+            <q-item-label class="text-grey" overline>Education</q-item-label>
+            <q-item-label class="text-weight-bold">Something amazing happened</q-item-label>
+            <q-item-label caption>Secondary line text. Lorem ipsum dolor sit amet, consectetur adipiscit elit.</q-item-label>
+          </q-item-section>
+
+          <q-item-section side top>
+            <q-item-label caption>5 min ago</q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-item class="q-pa-md">
+          <q-item-section>
+            <q-item-label class="text-grey" overline>Education</q-item-label>
+            <q-item-label class="text-weight-bold">Something amazing happened</q-item-label>
+            <q-item-label caption>Secondary line text. Lorem ipsum dolor sit amet, consectetur adipiscit elit.</q-item-label>
+          </q-item-section>
+
+          <q-item-section side top>
+            <q-item-label caption>5 min ago</q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-item class="q-pa-md">
+          <q-item-section>
+            <q-item-label class="text-grey" overline>Education</q-item-label>
+            <q-item-label class="text-weight-bold">Something amazing happened</q-item-label>
+            <q-item-label caption>Secondary line text. Lorem ipsum dolor sit amet, consectetur adipiscit elit.</q-item-label>
+          </q-item-section>
+
+          <q-item-section side top>
+            <q-item-label caption>5 min ago</q-item-label>
+          </q-item-section>
+        </q-item>
       </q-list>
     </q-drawer>
 
     <q-page-container>
       <router-view />
     </q-page-container>
+
   </q-layout>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref } from 'vue';
-import EssentialLink from 'components/EssentialLink.vue';
+<script>
+import { ref } from 'vue'
 
-const linksList = [
-  {
-    title: 'Docs',
-    caption: 'quasar.dev',
-    icon: 'school',
-    link: 'https://quasar.dev'
-  },
-  {
-    title: 'Github',
-    caption: 'github.com/quasarframework',
-    icon: 'code',
-    link: 'https://github.com/quasarframework'
-  },
-  {
-    title: 'Discord Chat Channel',
-    caption: 'chat.quasar.dev',
-    icon: 'chat',
-    link: 'https://chat.quasar.dev'
-  },
-  {
-    title: 'Forum',
-    caption: 'forum.quasar.dev',
-    icon: 'record_voice_over',
-    link: 'https://forum.quasar.dev'
-  },
-  {
-    title: 'Twitter',
-    caption: '@quasarframework',
-    icon: 'rss_feed',
-    link: 'https://twitter.quasar.dev'
-  },
-  {
-    title: 'Facebook',
-    caption: '@QuasarFramework',
-    icon: 'public',
-    link: 'https://facebook.quasar.dev'
-  },
-  {
-    title: 'Quasar Awesome',
-    caption: 'Community Quasar projects',
-    icon: 'favorite',
-    link: 'https://awesome.quasar.dev'
-  }
-];
-
-export default defineComponent({
-  name: 'MainLayout',
-
-  components: {
-    EssentialLink
-  },
-
+export default {
   setup () {
     const leftDrawerOpen = ref(false)
+    const rightDrawerOpen = ref(false)
 
     return {
-      essentialLinks: linksList,
       leftDrawerOpen,
       toggleLeftDrawer () {
         leftDrawerOpen.value = !leftDrawerOpen.value
+      },
+
+      rightDrawerOpen,
+      toggleRightDrawer () {
+        rightDrawerOpen.value = !rightDrawerOpen.value
       }
     }
   }
-});
+}
 </script>
+
+<style lang="sass">
+.header-icon
+    position: absolute
+    bottom: 0
+    left: 50%
+    transform: translateX(-50%)
+</style>
