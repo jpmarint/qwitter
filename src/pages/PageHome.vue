@@ -1,6 +1,6 @@
 <template>
   <q-page class="relative-position">
-    <q-scroll-area class="absolute fullscreen">
+    <q-scroll-area class="absolute full-widht full-height">
       <div class="q-py-lg q-px-md row items-end q-col-gutter-md">
         <div class="col">
           <q-input
@@ -117,7 +117,7 @@ export default defineComponent({
       this.newQweetContent = ""
     },
     async deleteQweet(index: number) {
-      await deleteDoc(doc(db, "cities", "DC"));
+      await deleteDoc(doc(db, "Qweets", "DC"));
     }
   },
   computed: {
